@@ -6,7 +6,7 @@
 /*   By: amalkhal <amalkhal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 17:52:23 by amalkhal          #+#    #+#             */
-/*   Updated: 2023/12/26 19:03:59 by amalkhal         ###   ########.fr       */
+/*   Updated: 2023/12/29 18:07:44 by amalkhal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,10 @@ int	make_thread(t_program *program, pthread_mutex_t *forks)
 	if (pthread_create(&observer, NULL, &tracking, program->philos) != 0)
 		destroy_all("ERROR making thread", program, forks);
 	i = 0;
-	while
+	while (i < program->philos[0].num_of_philos)
+	{
+		if (phtread_creat(&program->philos[i].thread, NULL, &philo_routine,
+				&program->philos[i]) != 0)
+				destroy_all("Thread creation error", program, forks);
+	}
 }

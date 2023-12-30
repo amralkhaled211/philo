@@ -6,11 +6,21 @@
 /*   By: amalkhal <amalkhal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 15:06:40 by amalkhal          #+#    #+#             */
-/*   Updated: 2023/12/26 19:02:16 by amalkhal         ###   ########.fr       */
+/*   Updated: 2023/12/29 18:33:58 by amalkhal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	ft_usleep(size_t milliscond)
+{
+	size_t	start;
+
+	start = get_current_time();
+	while ((get_current_time() - start) < milliscond)
+		usleep(500);
+	return (0);
+}
 
 void	destroy_all(char *str, t_program *program, pthread_mutex_t *forks)
 {

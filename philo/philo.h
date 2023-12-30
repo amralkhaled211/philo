@@ -6,7 +6,7 @@
 /*   By: amalkhal <amalkhal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 21:05:24 by amalkhal          #+#    #+#             */
-/*   Updated: 2023/12/26 19:02:36 by amalkhal         ###   ########.fr       */
+/*   Updated: 2023/12/29 18:49:39 by amalkhal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,9 @@ void	init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks,
 size_t	get_current_time(void);
 int		make_thread(t_program *program, pthread_mutex_t *forks);
 void	*tracking(void *pointer);
-void	message(char *str, t_philo *philo, int id)
+void	message(char *str, t_philo *philo, int id);
 void	destroy_all(char *str, t_program *program, pthread_mutex_t *forks);
+int		ft_usleep(size_t milliscond)
 
 
 #endif
