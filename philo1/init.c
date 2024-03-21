@@ -15,7 +15,7 @@ int	init_philo(t_data *data)
         data->philo[i].last_eat = get_time();
         data->philo[i].left_fork = i;
         data->philo[i].right_fork = (i + 1) % data->philo_count;
-        data->philo[i].data = data;
+        //data->philo[i].data = data;
     }
     return (0);
 }

@@ -9,6 +9,7 @@
 
 typedef struct s_philo
 {
+    pthread_t		thread;
     int				id;
     int				left_fork;
     int				right_fork;

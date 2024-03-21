@@ -49,8 +49,6 @@ int		check_philo(t_data *data)
             return (ft_error("Error: wrong philosopher left fork\n"));
         if (data->philo[i].right_fork < 0)
             return (ft_error("Error: wrong philosopher right fork\n"));
-        if (!data->philo[i].data)
-            return (ft_error("Error: wrong philosopher data\n"));
     }
     return (0);
 }
@@ -85,7 +83,7 @@ int		check_thread(t_data *data)
     return (0);
 }
 
-int		check_death(t_data *data);
+int		check_death(t_data *data)
 {
     int	i;
 
@@ -105,7 +103,7 @@ int		check_done(t_data *data)
     return (0);
 }
 
-int		check_eat(t_data *data);
+int		check_eat(t_data *data)
 {
     int	i;
 
@@ -144,7 +142,7 @@ int		check_think(t_data *data)
     return (0);
 }
 
-int		check_print(t_data *data);
+int		check_print(t_data *data)
 {
     if (pthread_mutex_trylock(&data->print))
         return (ft_error("Error: mutex lock failed\n"));
