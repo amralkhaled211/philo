@@ -36,35 +36,36 @@ void	death_checker(t_philo *philo, t_data *data)
 	}
 }
 
-void	eat_checker(t_philo *philo, t_data *data)
+void eat_checker(t_philo *philo, t_data *data)
 {
-	size_t	i;
+    size_t i;
+    size_t done_eating;
 
-	i = 0;
-	while (data->should_eat != -1 && i < data->philo_count)
-	{
-		pthread_mutex_lock(&philo[i].meal_lock);
-		pthread_mutex_lock(&philo[i].data->death_lock);
-		if (philo[i].eat_count > data->should_eat)
-			data->philo_full++;
-		if (data->philo_full == data->philo_count)
-		{
-			data->philo_died = 1;
-			pthread_mutex_unlock(&philo[i].data->death_lock);
-			pthread_mutex_unlock(&philo[i].meal_lock); // BP
-			return ;
-		}
-		pthread_mutex_unlock(&philo[i].meal_lock);
-		pthread_mutex_unlock(&philo[i].data->death_lock);
-		i++;
-	}
+    i = 0;
+    done_eating = 0;
+    if (data->should_eat == -1)
+        return;
+    while (i < data->philo_count)
+    {
+        pthread_mutex_lock(&philo[i].meal_lock);
+        if (philo[i].eat_count >= data->should_eat)
+            done_eating++;
+        pthread_mutex_unlock(&philo[i].meal_lock);
+        i++;
+    }
+    if (done_eating == data->philo_count)
+    {
+        pthread_mutex_lock(&data->death_lock);
+        data->philo_died = 1;
+        pthread_mutex_unlock(&data->death_lock);
+    }
 }
 
 void	checker(t_philo *philo, t_data *data)
 {
 	while (1)
 	{
-		// usleep(100);
+		usleep(100);
 		death_checker(philo, data);
 		eat_checker(philo, data);
 		if (data->philo_died == 1)
