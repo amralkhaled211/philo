@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-int	handle_non_numeric_input(char *str, int av)
+int	handle_non_numeric_input(char *str)
 {
     int	i;
 
@@ -22,7 +22,7 @@ int	handle_non_numeric_input(char *str, int av)
         ft_putstr_fd("Error: Empty input\n", 2);
         return (1);
     }
-    if (av == 0 && str[0] == '0' && str[1] == '\0')
+    if (str[0] == '0' && str[1] == '\0')
     {
         ft_putstr_fd("Error: Zero input\n", 2);
         return (1);
@@ -46,10 +46,10 @@ int	handel_input(int ac, char **av)
 		ft_putstr_fd("Error: Wrong number of arguments\n", 2);
 		return (1);
 	}
-	if (handle_non_numeric_input(av[1], 0) || handle_non_numeric_input(av[2], 0)
-		|| handle_non_numeric_input(av[3], 0) || handle_non_numeric_input(av[4], 0))
+	if (handle_non_numeric_input(av[1]) || handle_non_numeric_input(av[2])
+		|| handle_non_numeric_input(av[3]) || handle_non_numeric_input(av[4]))
 		return (1);
-	if (ac == 6 && handle_non_numeric_input(av[5], 1))
+	if (ac == 6 && handle_non_numeric_input(av[5]))
 		return (1);
 	return (0);
 }

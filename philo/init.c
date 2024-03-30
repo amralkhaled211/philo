@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-void	init_input(t_data *data, int ac, char **av)
+void init_input(t_data *data, int ac, char **av)
 {
 	data->philo_count = ft_atoi(av[1]);
 	data->die_time = ft_atoi(av[2]);
@@ -23,11 +23,11 @@ void	init_input(t_data *data, int ac, char **av)
 	if (ac == 6)
 		data->should_eat = ft_atoi(av[5]);
 	else
-		data->should_eat = -1;
+		data->should_eat = 0;
 }
 
-void	destroy_init_mutex(t_data *data, int i)
-{	
+void destroy_init_mutex(t_data *data, int i)
+{
 	while (i >= 0)
 	{
 		pthread_mutex_destroy(&data->forks[i]);
@@ -36,13 +36,12 @@ void	destroy_init_mutex(t_data *data, int i)
 	free(data->forks);
 }
 
-int	init_data(t_data *data, int ac, char **av)
+int init_data(t_data *data, int ac, char **av)
 {
-	size_t	i;
+	size_t i;
 
 	init_input(data, ac, av);
-	data->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
-			* data->philo_count);
+	data->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * data->philo_count);
 	if (!data->forks)
 		return (1);
 	i = 0;
@@ -60,7 +59,7 @@ int	init_data(t_data *data, int ac, char **av)
 	return (0);
 }
 
-void	destroy_init_mutex_philo(t_philo *philo, int i)
+void destroy_init_mutex_philo(t_philo *philo, int i)
 {
 	while (i >= 0)
 	{
@@ -69,9 +68,9 @@ void	destroy_init_mutex_philo(t_philo *philo, int i)
 	}
 }
 
-int	init_philo(t_philo *philo, t_data *data)
+int init_philo(t_philo *philo, t_data *data)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
 	while (i < data->philo_count)

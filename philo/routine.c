@@ -6,7 +6,7 @@
 /*   By: amalkhal <amalkhal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:48:00 by amalkhal          #+#    #+#             */
-/*   Updated: 2024/03/29 13:30:38 by amalkhal         ###   ########.fr       */
+/*   Updated: 2024/03/30 18:01:56 by amalkhal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,35 +33,23 @@ void	destroy_mutex(t_data *data, t_philo *philo)
 	free(philo);
 }
 
-/* static int	philo_eat(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->data->forks[philo->left_fork]);
-	printing_mutex(philo, "has taken a fork");
-	pthread_mutex_lock(&philo->data->forks[philo->right_fork]);
-	printing_mutex(philo, "has taken a fork");
-	printing_mutex(philo, "is eating");
-	pthread_mutex_lock(&philo->meal_lock);
-	philo->last_eat = get_time();
-	philo->eat_count++;
-	pthread_mutex_unlock(&philo->meal_lock);
-	ft_usleep(philo->data->eat_time, philo);
-	pthread_mutex_unlock(&philo->data->forks[philo->left_fork]);
-	pthread_mutex_unlock(&philo->data->forks[philo->right_fork]);
-	return (0);
-} */
-
 int philo_eat(t_philo *philo)
 {
+	pthread_mutex_lock(&philo->meal_lock);
+    if (philo->eat_count >= philo->data->should_eat && philo->data->should_eat != 0)
+	{
+        pthread_mutex_unlock(&philo->meal_lock);
+        return (0);
+    }
+	pthread_mutex_unlock(&philo->meal_lock);
     int left_fork = philo->left_fork;
     int right_fork = philo->right_fork;
-
     // Ensure that the forks are always picked up in the same order
     if (left_fork > right_fork) {
         int temp = left_fork;
         left_fork = right_fork;
         right_fork = temp;
     }
-
     pthread_mutex_lock(&philo->data->forks[left_fork]);
     printing_mutex(philo, "has taken a fork");
     pthread_mutex_lock(&philo->data->forks[right_fork]);
@@ -72,6 +60,8 @@ int philo_eat(t_philo *philo)
     philo->eat_count++;
 	pthread_mutex_unlock(&philo->meal_lock);
     ft_usleep(philo->data->eat_time, philo);
+	// pthread_mutex_lock(&philo->meal_lock);
+	// pthread_mutex_unlock(&philo->meal_lock);
     pthread_mutex_unlock(&philo->data->forks[left_fork]);
     pthread_mutex_unlock(&philo->data->forks[right_fork]);
     return (0);
@@ -98,14 +88,15 @@ void	*philo_routine(void *pointer)
 	return (NULL);
 }
 
+
 void	*handel_one_philo(void *pointer)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)pointer;
-	printf("%d %d has taken a fork\n", 0, philo->id);
+	printf("%d %zu has taken a fork\n", 0, philo->id);
 	ft_usleep(philo->data->die_time, philo);
-	printf("%zu %d died\n", philo->data->die_time, philo->id);
+	printf("%zu %zu died\n", philo->data->die_time, philo->id);
 	return (NULL);
 }
 

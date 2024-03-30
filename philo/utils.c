@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-int	ft_atoi(const char *str)
+/* int	ft_atoi(const char *str)
 {
 	int		i;
 	int		sign;
@@ -36,6 +36,29 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return ((int)(nbr * sign));
+} */
+
+size_t	ft_atoi(const char *str)
+{
+    size_t	i;
+    size_t	nbr;
+
+    i = 0;
+    nbr = 0;
+    while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'
+        || str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
+        i++;
+    while (str[i] >= '0' && str[i] <= '9')
+	{
+    if (nbr > (SIZE_MAX / 10) || (nbr == SIZE_MAX / 10 && (unsigned long)(str[i] - '0') > SIZE_MAX % 10))
+    {
+        // Overflow, return maximum size_t value
+        return SIZE_MAX;
+    }
+    nbr = nbr * 10 + (str[i] - '0');
+    i++;
+	}
+    return nbr;
 }
 
 int	ft_isdigit(int c)

@@ -18,14 +18,18 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <stdlib.h>
+# include <limits.h>
+# include <stdint.h>
+
+//# define SIZE_MAX 18446744073709551615
 
 typedef struct s_data
 {
 	size_t				philo_count;
 	size_t				die_time;
 	size_t				eat_time;
-	int				sleep_time;
-	int				should_eat;
+	size_t				sleep_time;
+	size_t				should_eat;
 	size_t				philo_full;
 	int				philo_died;
 	pthread_mutex_t	*forks;
@@ -34,19 +38,19 @@ typedef struct s_data
 
 typedef struct s_philo
 {
-	int				id;
-	int				eat_count;
+	size_t			id;
+	size_t			eat_count;
 	size_t			last_eat;
-	long			start;
-	int				left_fork;
-	int				right_fork;
-	int				thread_flag;
+	size_t			start;
+	size_t			left_fork;
+	size_t			right_fork;
+	size_t			thread_flag;
 	t_data			*data;
 	pthread_t		thread;
 	pthread_mutex_t	meal_lock;
 }	t_philo;
 
-int			ft_atoi(const char *str);
+size_t			ft_atoi(const char *str);
 int			ft_isdigit(int c);
 int			ft_strlen(const char *str);
 void		ft_putstr_fd(char *s, int fd);

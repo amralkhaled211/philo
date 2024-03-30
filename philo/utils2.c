@@ -6,7 +6,7 @@
 /*   By: amalkhal <amalkhal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:07:14 by amalkhal          #+#    #+#             */
-/*   Updated: 2024/03/27 14:31:22 by amalkhal         ###   ########.fr       */
+/*   Updated: 2024/03/30 16:41:38 by amalkhal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	printing_death(t_philo *philo, char *str)
 	if (philo->data->philo_died == 1)
 	{
 		time = get_time();
-		printf("%zu %d %s\n", time - philo->start, philo->id, str);
+		printf("%zu %zu %s\n", time - philo->start, philo->id, str);
 	}
 	return (0);
 }
@@ -41,7 +41,7 @@ int	printing_mutex(t_philo *philo, char *str)
 	if (philo->data->philo_died == 0)
 	{
 		time = get_time();
-		printf("%zu %d %s\n", time - philo->start, philo->id, str);
+		printf("%zu %zu %s\n", time - philo->start, philo->id, str);
 	}
 	pthread_mutex_unlock(&philo->data->death_lock);
 	return (0);
