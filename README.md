@@ -30,7 +30,7 @@ The Dining Philosophers Problem is a well-known problem in computer science that
 2. **Compile the project:**
    ```bash
    make
-3. **Run the game:**
+3. **Run :**
    ```bash
    ./philo 5 800 200 200
    
